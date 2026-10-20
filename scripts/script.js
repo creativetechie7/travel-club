@@ -30,44 +30,32 @@ document.addEventListener('DOMContentLoaded', function () {
     let isValid = true;
     event.preventDefault();
     if (username.value.trim() === '') {
-      usernameError.style.display = 'inline';
-      usernameError.textContent = 'Username is required.';
-      username.classList.add('error-border');
+      showError(usernameError, username, 'Username is required.');
       isValid = false;
     } else {
-      usernameError.style.display = 'none';
-      usernameError.textContent = '';
-      username.classList.remove('error-border');
+      clearError(usernameError, username);
     }
     if (password.value.length < 8) {
-      passwordError.style.display = 'inline';
-      passwordError.textContent = 'Password must be at least 8 characters.';
-      password.classList.add('error-border');
+      showError(
+        passwordError,
+        password,
+        'Password must be at least 8 characters.',
+      );
       isValid = false;
     } else {
-      passwordError.style.display = 'none';
-      passwordError.textContent = '';
-      password.classList.remove('error-border');
+      clearError(passwordError, password);
     }
     if (!emailPattern.test(email.value.trim())) {
-      emailError.style.display = 'inline';
-      emailError.textContent = 'Enter a valid email address.';
-      email.classList.add('error-border');
+      showError(emailError, email, 'Enter a valid email address.');
       isValid = false;
     } else {
-      emailError.style.display = 'none';
-      emailError.textContent = '';
-      email.classList.remove('error-border');
+      clearError(emailError, email);
     }
     if (!terms.checked) {
-      termsError.style.display = 'inline';
-      termsError.textContent = 'You must accept the terms.';
-      terms.classList.add('error-border');
+      showError(termsError, terms, 'You must accept the terms.');
       isValid = false;
     } else {
-      termsError.style.display = 'none';
-      termsError.textContent = '';
-      terms.classList.remove('error-border');
+      clearError(termsError, terms);
     }
     if (isValid) {
       alert('Submitted! :)');
@@ -89,6 +77,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+function clearError(inputError, input) {
+  inputError.style.display = 'none';
+  inputError.textContent = '';
+  input.classList.remove('error-border');
+}
+
+function showError(inputError, input, message) {
+  inputError.style.display = 'inline';
+  inputError.textContent = message;
+  input.classList.add('error-border');
+}
 
 function selectTile(tiles, tile) {
   tiles.forEach(function (innerTile) {
